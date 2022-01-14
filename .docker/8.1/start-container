@@ -1,0 +1,25 @@
+#!/bin/bash
+#-----
+# Este arquivo é executado toda vez que o docker é iniciado serve para
+# executar dois serviços.
+#   - O primeiro será iniciado e não irá mais terminar que é o php-fpm.
+#   - O segundo é o update.sh que verifica se é uma instalação ou um
+#     update para que dessa forma possa criar uma nova estrutura de DB
+#     ou então se for o caso atualizá-la
+#---------------------------------------------------
+
+set -m
+
+# Inicia o processo que continuará executando
+php-fpm &
+
+#-- BACK-END
+# Inicia o segundo processo que será finalizado após executado
+if [ -f /var/www/.INSTALL ]; then
+    sh /var/www/update.sh -i
+else
+    sh /var/www/update.sh -u
+fi
+
+# Trás o php-fpm para o foreground
+fg %1

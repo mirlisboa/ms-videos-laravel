@@ -1,0 +1,78 @@
+version: '3'
+
+services:
+    app:
+        build:
+            context: ./.docker/8.1
+        container_name: msvl-app
+        environment:
+            MYSQL_HOST: '${DB_HOST}'
+            MYSQL_USER: '${DB_USERNAME}'
+            MYSQL_PASSWORD: '${DB_PASSWORD}'
+            MYSQL_DATABASE: '${DB_DATABASE}'
+        volumes:
+            - '.:/var/www'
+            - './.docker/logs/php-fpm:/usr/local/var/log'
+        networks:
+            - msvl
+        depends_on:
+            - db
+            - redis
+
+    nginx:
+        build: ./.docker/nginx
+        container_name: msvl-nginx
+        environment:
+            - TZ=America/Sao_Paulo
+        ports:
+            - 8001:80
+        volumes:
+            - '.:/var/www'
+            - './.docker/logs/nginx:/var/log/nginx'
+        networks:
+            - msvl
+        depends_on:
+            - app
+        healthcheck:
+            test: ["CMD-SHELL", "wget -O /dev/null http://localhost || exit 1"]
+            retries: 3
+            timeout: 5s
+
+    db:
+        build:
+            context: .
+            dockerfile: ./.docker/mariadb/Dockerfile
+        container_name: msvl-db
+        environment:
+            MYSQL_ROOT_PASSWORD: '${DB_PASSWORD}'
+            MYSQL_DATABASE: '${DB_DATABASE}'
+            MYSQL_USER: '${DB_USERNAME}'
+            MYSQL_PASSWORD: '${DB_PASSWORD}'
+            MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
+        volumes:
+            - ./.docker/data/mariadb:/var/lib/mysql
+            - ./.docker/logs/mariadb:/var/log/mysql
+            - ./.docker/mariadb/init:/docker-entrypoint-initdb.d
+        networks:
+            - msvl
+        healthcheck:
+            test: ["CMD", "mysqladmin", "ping", "-p${DB_PASSWORD}"]
+            retries: 3
+            timeout: 5s
+
+    redis:
+        image: 'redis:alpine'
+        container_name: msvl-redis
+        expose:
+            - 6379
+        volumes:
+            - './.docker/data/redis:/data'
+        networks:
+            - msvl
+        healthcheck:
+            test: ["CMD", "redis-cli", "ping"]
+            retries: 3
+            timeout: 5s
+networks:
+    msvl:
+        driver: bridge

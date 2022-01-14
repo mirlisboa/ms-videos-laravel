@@ -1,0 +1,7 @@
+[mysqld]
+character-set-server  = utf8mb4
+collation-server      = utf8mb4_general_ci
+default_time_zone     = "America/Sao_Paulo"
+
+[mysql]
+default-character-set = utf8mb4
