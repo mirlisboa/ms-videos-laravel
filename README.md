@@ -19,7 +19,7 @@ Para acessar os recursos utilize as seguintes urls:
 
 
 | URL                             | Verbo         | Descrição                         |
-|---------------------------------|---------------|-----------------------------------|
+|:--------------------------------|:--------------|:----------------------------------|
 | /api/v1/categories              | GET           | exibe todas as categorias         |
 | /api/v1/categories/{category}   | GET           | exibe a categoria solicitada      |
 | /api/v1/categories              | POST          | cadastra uma nova categoria       |
