@@ -6,14 +6,20 @@
 
 **Professor:** Luiz Carlos
 
-### 1º Desafio:
+#### Orientações Gerais
 
-Criar recurso Category e Genre.
+Antes de executar o docker copie o conteúdo do arquivo **_.env-example_** para **_.env_** e modifique os parametros como desejar, porém como foi configurado para que o banco só aceite acessos com senha, não deixe de adicionar uma senha ao usuário.
+```bash
+cp .env-example .env
+```
+
+### 1º Desafio: recursos Category e Genre.
 
 Para acessar os recursos utilize as seguintes urls:
-+---------------------------------+---------------+-----------------------------------+
+
+
 | URL                             | Verbo         | Descrição                         |
-+---------------------------------+---------------+-----------------------------------+
+|---------------------------------|---------------|-----------------------------------|
 | /api/v1/categories              | GET           | exibe todas as categorias         |
 | /api/v1/categories/{category}   | GET           | exibe a categoria solicitada      |
 | /api/v1/categories              | POST          | cadastra uma nova categoria       |
@@ -24,12 +30,4 @@ Para acessar os recursos utilize as seguintes urls:
 | /api/v1/genres                  | POST          | cadastra um novo gênero           |
 | /api/v1/genres/{genre}          | PUT           | atualiza um gênero existente      |
 | /api/v1/genres/{genre}          | DELETE        | apaga um gênero                   |
-+---------------------------------+---------------+-----------------------------------+
 
-
-**Orientações**
-
-Antes de executar o docker copie o conteúdo do arquivo .env-example para .env e modifique os parametros como desejar, porém como foi configurado para que o banco só aceite acessos com senha, não deixe de adicionar uma senha ao usuário.
-```bash
-cp .env-example .env
-```
