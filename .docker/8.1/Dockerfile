@@ -6,7 +6,6 @@ RUN apk add --no-cache icu-dev oniguruma-dev shadow openssl \
     bash mysql-client nodejs npm git tzdata
 RUN docker-php-ext-install pdo pdo_mysql
 
-#RUN touch /root/.bashrc | echo "PS1='\w\$ '" >> /root/.bashrc
 RUN touch /home/www-data/.bashrc | echo "PS1='\w\$ '" >> /home/www-data/.bashrc
 
 ENV TZ=America/Sao_Paulo

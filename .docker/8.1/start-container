@@ -16,7 +16,8 @@ php-fpm &
 #-- BACK-END
 # Inicia o segundo processo que será finalizado após executado
 if [ -f /var/www/.INSTALL ]; then
-    sh /var/www/update.sh -i
+    sh /var/www/update.sh -i --seed
+    rm /var/www/.INSTALL
 else
     sh /var/www/update.sh -u
 fi
