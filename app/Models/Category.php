@@ -15,5 +15,9 @@ class Category extends Model
 
     protected $keyType = 'uuid';
 
+    protected $casts = [
+        'is_active' => 'boolean',
+    ];
+
     protected $fillable = [ 'name', 'description', 'is_active' ];
 }

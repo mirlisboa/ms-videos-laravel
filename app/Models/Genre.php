@@ -15,5 +15,9 @@ class Genre extends Model
 
     protected $keyType = 'uuid';
 
+    protected $casts = [
+        'is_active' => 'boolean',
+    ];
+
     protected $fillable = ['name', 'is_active'];
 }
