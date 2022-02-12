@@ -23,7 +23,9 @@ class CategoryController extends Controller
     {
         $this->validate($request, $this->rules);
 
-        return Category::create($request->all());
+        $category = Category::create($request->all());
+
+        return $category->refresh();
     }
 
     public function show(Category $category)
@@ -35,7 +37,9 @@ class CategoryController extends Controller
     {
         $this->validate($request, $this->rules);
 
-        return $category->update($request->all());
+        $category->update($request->all());
+
+        return $category->refresh();
     }
 
     public function destroy(Category $category)
